@@ -8,7 +8,7 @@ package Infraestructure.Database;
  */
 public class ConnectionDbMySql {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/ejercicio18";
+    private static final String URL = "jdbc:mysql://localhost:3306/ejercicio8";
     private static final String USER = "root";
     private static final String PASSWORD = "";
     private static final String DRIVER = "com.mysql.jdbc.Driver";

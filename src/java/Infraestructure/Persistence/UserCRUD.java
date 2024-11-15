@@ -17,7 +17,7 @@ public class UserCRUD {
     // Método para obtener todos los usuarios
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        String query = "SELECT * FROM Users";
+        String query = "SELECT * FROM estudiantes";
         try {
             Connection con = ConnectionDbMySql.getConnection();
             Statement stmt = con.createStatement();
@@ -39,7 +39,7 @@ public class UserCRUD {
     }
     // Método para agregar un nuevo usuario
     public void addUser(User user) throws SQLException, DuplicateUserException {
-        String query = "INSERT INTO Users (code, password, name, email) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO estudiantes (code, password, name, email) VALUES (?, ?, ?, ?)";
         try (Connection con = ConnectionDbMySql.getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
             stmt.setString(1, user.getCode());
             stmt.setString(2, user.getPassword());
@@ -58,7 +58,7 @@ public class UserCRUD {
     
     // Método para actualizar un usuario
 public void updateUser(User user) throws SQLException, UserNotFoundException {
-    String query = "UPDATE Users SET password=?, name=?, email=? WHERE code=?";
+    String query = "UPDATE estudiantes SET password=?, name=?, email=? WHERE code=?";
     try (Connection con = ConnectionDbMySql.getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
         stmt.setString(1, user.getPassword());
         stmt.setString(2, user.getName());
@@ -74,7 +74,7 @@ public void updateUser(User user) throws SQLException, UserNotFoundException {
 }
 // Método para eliminar un usuario
 public void deleteUser(String code) throws SQLException, UserNotFoundException {
-    String query = "DELETE FROM Users WHERE code=?";
+    String query = "DELETE FROM estudiantes WHERE code=?";
     try (Connection con = ConnectionDbMySql.getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
         stmt.setString(1, code);
         int rowsAffected = stmt.executeUpdate();
@@ -87,7 +87,7 @@ public void deleteUser(String code) throws SQLException, UserNotFoundException {
 }
 // Método para obtener un usuario por código
 public User getUserByCode(String code) throws SQLException, UserNotFoundException {
-    String query = "SELECT * FROM Users WHERE code=?";
+    String query = "SELECT * FROM estudiantes WHERE code=?";
     User user = null;
     try (Connection con = ConnectionDbMySql.getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
         stmt.setString(1, code);
@@ -105,7 +105,7 @@ public User getUserByCode(String code) throws SQLException, UserNotFoundExceptio
 // Método para autenticar un usuario por email y contraseña (Login)
 public User getUserByEmailAndPassword(String email, String password) throws UserNotFoundException {
     User user = null;
-    String query = "SELECT * FROM Users WHERE email=? AND password=?";
+    String query = "SELECT * FROM estudiantes WHERE email=? AND password=?";
     try {
         Connection con = ConnectionDbMySql.getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
@@ -131,7 +131,7 @@ public User getUserByEmailAndPassword(String email, String password) throws User
 // Método para obtener un usuario por email
 public User getUserByEmail(String email) throws SQLException, UserNotFoundException {
     User user = null;
-    String query = "SELECT * FROM Users WHERE email=?";
+    String query = "SELECT * FROM estudiantes WHERE email=?";
     try (Connection con = ConnectionDbMySql.getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
         stmt.setString(1, email);
         ResultSet rs = stmt.executeQuery();
@@ -146,7 +146,7 @@ public User getUserByEmail(String email) throws SQLException, UserNotFoundExcept
 // Método para buscar usuarios por nombre o email
 public List<User> searchUsers(String searchTerm) {
     List<User> userList = new ArrayList<>();
-    String query = "SELECT * FROM Usuarios WHERE name LIKE ? OR email LIKE ?";
+    String query = "SELECT * FROM estudiantes WHERE name LIKE ? OR email LIKE ?";
     try (Connection con = ConnectionDbMySql.getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
         stmt.setString(1, "%" + searchTerm + "%");
         stmt.setString(2, "%" + searchTerm + "%");

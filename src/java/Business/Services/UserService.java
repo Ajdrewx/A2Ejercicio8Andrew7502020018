@@ -1,5 +1,9 @@
 package Business.Services;
 
+/**
+ * @autor Usuario
+ */
+
 import Domain.Model.User;
 import Business.Exceptions.UserNotFoundException;
 import Business.Exceptions.DuplicateUserException;
@@ -47,6 +51,7 @@ public class UserService {
 
     // Método para autenticar un usuario (login)
     public User loginUser(String email, String password) throws UserNotFoundException, SQLException {
+        // Usamos el método getUserByEmail en lugar de obtener todos los usuarios
         User user = userCrud.getUserByEmail(email);
 
         if (user != null && user.getPassword().equals(password)) {
