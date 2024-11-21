@@ -1,9 +1,5 @@
 package Business.Services;
 
-/**
- * @autor Usuario
- */
-
 import Domain.Model.User;
 import Business.Exceptions.UserNotFoundException;
 import Business.Exceptions.DuplicateUserException;
@@ -15,45 +11,37 @@ public class UserService {
 
     private UserCRUD userCrud;
 
-    // Constructor
     public UserService() {
         this.userCrud = new UserCRUD();
     }
 
-    // Método para obtener todos los usuarios
     public List<User> getAllUsers() throws SQLException {
         return userCrud.getAllUsers();
     }
 
-    // Método para agregar un nuevo usuario
-    public void createUser(String code, String name, String email, String password)
+    public void createUser(String code, String name, String apellidos, String rol, String email, String telefono, String estado, String fechaRegistro)
             throws DuplicateUserException, SQLException {
-        User user = new User(code, password, name, email);
+        User user = new User(code, "", name, apellidos, rol, email, telefono, estado, fechaRegistro);
         userCrud.addUser(user);
     }
 
-    // Método para actualizar un usuario
-    public void updateUser(String code, String name, String email, String password)
+    public void updateUser(String code, String name, String apellidos, String rol, String email, String password, String telefono, String estado, String fechaRegistro)
             throws UserNotFoundException, SQLException {
-        User user = new User(code, password, name, email);
+        // Ahora se pasan todos los campos nuevos al crear el objeto User
+        User user = new User(code, password, name, apellidos, rol, email, telefono, estado, fechaRegistro);
         userCrud.updateUser(user);
     }
 
-    // Método para eliminar un usuario
     public void deleteUser(String code) throws UserNotFoundException, SQLException {
         userCrud.deleteUser(code);
     }
 
-    // Método para obtener un usuario por código
     public User getUserByCode(String code) throws UserNotFoundException, SQLException {
         return userCrud.getUserByCode(code);
     }
 
-    // Método para autenticar un usuario (login)
     public User loginUser(String email, String password) throws UserNotFoundException, SQLException {
-        // Usamos el método getUserByEmail en lugar de obtener todos los usuarios
         User user = userCrud.getUserByEmail(email);
-
         if (user != null && user.getPassword().equals(password)) {
             return user;
         } else {
@@ -61,7 +49,6 @@ public class UserService {
         }
     }
 
-    // Método para buscar usuarios por nombre o email
     public List<User> searchUsers(String searchTerm) {
         return userCrud.searchUsers(searchTerm);
     }

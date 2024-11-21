@@ -1,8 +1,4 @@
-<%--
-    Document    : list_all
-    Created on  : 20 oct 2024
-    Author      : johnarrieta
---%>
+
 
 <%@page import="java.util.List"%>
 <%@page import="Domain.Model.User"%>
